@@ -14,7 +14,8 @@ namespace ImShowCustom
         // private LibBlur _blur = new();
         // private LibGaussianBlur _blur = new();
         // private LibMedianBlur _blur=new();
-        private LibBilateralFilter _blur = new();
+        // private LibBilateralFilter _blur = new();
+        private LibFastNlMeansDenoisingColored _blur = new();
         private LibImShow _cv2c = new();
         private Mat _originImg = null;
 
@@ -34,6 +35,7 @@ namespace ImShowCustom
             // _cv2c.ImShow(_blur.Run(_originImg,(20,20,20.6)));
             // _cv2c.ImShow(_blur.Run(_originImg,20));
             // _cv2c.ImShow(_blur.Run(_originImg,(10,25,10)));
+            // _cv2c.ImShow(_blur.Run(_originImg,(3,3,7,21)));
         }
 
         // ****************************************
