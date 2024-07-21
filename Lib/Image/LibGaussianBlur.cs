@@ -6,7 +6,7 @@ class LibGaussianBlur : Box
 {
     private LibScaleBox _scaleX = new();
     private LibScaleBox _scaleY = new();
-    private LibScaleBox _sigma = new();
+    private LibScaleBox _scaleSigma = new();
     private Mat _originImg = null;
     public delegate void eventHandler(Mat img);
     public eventHandler OnChangedImage = null;
@@ -24,10 +24,10 @@ class LibGaussianBlur : Box
     {
         _scaleX.Configure(label: "kernel X", from: 1, to: 50, decimal_place: 0);
         _scaleY.Configure(label: "kernel Y", from: 1, to: 50, decimal_place: 0);
-        _sigma.Configure(label: "sigma", from: 0, to: 50, decimal_place: 1);
+        _scaleSigma.Configure(label: "sigma", from: 0, to: 50, decimal_place: 1);
         this.Add(_scaleX);
         this.Add(_scaleY);
-        this.Add(_sigma);
+        this.Add(_scaleSigma);
         this.Orientation = Orientation.Vertical;
         this.Visible = true;
     }
@@ -36,7 +36,7 @@ class LibGaussianBlur : Box
     {
         _scaleX.OnChangedScale += OnChangeScale;
         _scaleY.OnChangedScale += OnChangeScale;
-        _sigma.OnChangedScale += OnChangeScale;
+        _scaleSigma.OnChangedScale += OnChangeScale;
     }
 
     // ****************************************
@@ -48,7 +48,7 @@ class LibGaussianBlur : Box
         (int x, int y, double sigma) Param;
         Param.x = (int)_scaleX.Get();
         Param.y = (int)_scaleY.Get();
-        Param.sigma = _sigma.Get();
+        Param.sigma = _scaleSigma.Get();
         if (Param.x % 2 == 0) { Param.x += 1; }
         if (Param.y % 2 == 0) { Param.y += 1; }
 
@@ -78,7 +78,7 @@ class LibGaussianBlur : Box
         {
             Param.x = (int)_scaleX.Get();
             Param.y = (int)_scaleY.Get();
-            Param.sigma = _sigma.Get();
+            Param.sigma = _scaleSigma.Get();
         }
         else
         {
@@ -86,13 +86,13 @@ class LibGaussianBlur : Box
             if (Param.y % 2 == 0) { Param.y += 1; }
             _scaleX.Set(Param.x);
             _scaleY.Set(Param.y);
-            _sigma.Set(Param.sigma);
+            _scaleSigma.Set(Param.sigma);
         }
         return GaussianBlur(_originImg, Param);
     }
 
     public (int x, int y, double sigma) GetParam()
     {
-        return ((int)_scaleX.Get(), (int)_scaleY.Get(), _sigma.Get());
+        return ((int)_scaleX.Get(), (int)_scaleY.Get(), _scaleSigma.Get());
     }
 }
