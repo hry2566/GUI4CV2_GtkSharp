@@ -1,0 +1,29 @@
+.white-background {
+    background-color: white;
+}
+
+.light-gray-background {
+    background-color: #d3d3d3;
+    /* light gray */
+}
+
+.gray-background {
+    background-color: #a9a9a9;
+    /* gray */
+}
+
+.dark-gray-background {
+    background-color: #696969;
+    /* dark gray */
+}
+
+.black-background {
+    background-color: black;
+}
+
+.box-with-border {
+    border: 1px solid black;
+    /* 2pxの黒い枠線を設定 */
+    padding: 5px;
+    /* 内側の余白を設定（オプション） */
+}
