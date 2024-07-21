@@ -30,7 +30,7 @@ class LibScaleBox : Box
     private void InitGui()
     {
         CssProvider cssProvider = new CssProvider();
-        cssProvider.LoadFromPath("./css/style.css");
+        cssProvider.LoadFromPath("./Lib/Widgets/css/style.css");
         StyleContext.AddProviderForScreen(Gdk.Screen.Default, cssProvider, uint.MaxValue);
         _scale.StyleContext.AddClass("box-with-border");
         _btn_up.StyleContext.AddClass("box-with-border");

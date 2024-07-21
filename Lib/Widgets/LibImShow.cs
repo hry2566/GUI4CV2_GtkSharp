@@ -29,7 +29,7 @@ class LibImShow : LibEventBox
     private void InitGui()
     {
         CssProvider cssProvider = new CssProvider();
-        cssProvider.LoadFromPath("./css/style.css");
+        cssProvider.LoadFromPath("./Lib/Widgets/css/style.css");
         StyleContext.AddProviderForScreen(Gdk.Screen.Default, cssProvider, uint.MaxValue);
         this.StyleContext.AddClass("box-with-border");
         this.MarginStart = 4;
