@@ -40,7 +40,7 @@ class LibMedianBlur : Box
         int Param = (int)_scaleKernel.Get();
         if (Param % 2 == 0) { Param += 1; }
 
-        Mat img = GaussianBlur(_originImg, Param);
+        Mat img = MedianBlur(_originImg, Param);
         if (OnChangedImage == null) { return; }
         OnChangedImage(img);
     }
@@ -48,7 +48,7 @@ class LibMedianBlur : Box
     // ****************************************
     // Private Function
     // ****************************************
-    private Mat GaussianBlur(Mat sourceImg, int Param)
+    private Mat MedianBlur(Mat sourceImg, int Param)
     {
         Mat dstImg = new();
         Cv2.MedianBlur(sourceImg, dstImg, Param);
@@ -71,7 +71,7 @@ class LibMedianBlur : Box
             if (Param % 2 == 0) { Param += 1; }
             _scaleKernel.Set(Param);
         }
-        return GaussianBlur(_originImg, Param);
+        return MedianBlur(_originImg, Param);
     }
 
     public int GetParam()
