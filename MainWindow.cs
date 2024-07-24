@@ -11,12 +11,13 @@ namespace ImShowCustom
         [UI] private Box _boxLeft = null;
         [UI] private Box _boxRight = null;
 
-        // private LibBlur _blur = new();
-        // private LibGaussianBlur _blur = new();
-        // private LibMedianBlur _blur=new();
-        // private LibBilateralFilter _blur = new();
-        // private LibFastNlMeansDenoisingColored _blur = new();
-        private LibFilter2D _blur = new();
+        // private LibBlur _imgProc = new();
+        // private LibGaussianBlur _imgProc = new();
+        // private LibMedianBlur _imgProc=new();
+        // private LibBilateralFilter _imgProc = new();
+        // private LibFastNlMeansDenoisingColored _imgProc = new();
+        // private LibFilter2D _imgProc = new();
+        private LibUnSharp _imgProc = new();
         private LibImShow _cv2c = new();
         private Mat _originImg = null;
 
@@ -31,13 +32,28 @@ namespace ImShowCustom
             InitEvents();
 
             _originImg = Cv2.ImRead("lenna.png", ImreadModes.Color);
-            _cv2c.ImShow(_blur.Run(_originImg));
-            // _cv2c.ImShow(_blur.Run(_originImg,(20,20)));
-            // _cv2c.ImShow(_blur.Run(_originImg,(20,20,20.6)));
-            // _cv2c.ImShow(_blur.Run(_originImg,20));
-            // _cv2c.ImShow(_blur.Run(_originImg,(10,25,10)));
-            // _cv2c.ImShow(_blur.Run(_originImg,(3,3,7,21)));
-            // _cv2c.ImShow(_blur.Run(_originImg,0.38));
+            // _cv2c.ImShow(_imgProc.Run(_originImg));
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(20,20)));
+
+            // _cv2c.ImShow(_imgProc.Run(_originImg));
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(20,20,20.6)));
+
+            // _cv2c.ImShow(_imgProc.Run(_originImg));
+            // _cv2c.ImShow(_imgProc.Run(_originImg,20));
+
+            // _cv2c.ImShow(_imgProc.Run(_originImg));
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(10,25,10)));
+
+            // _cv2c.ImShow(_imgProc.Run(_originImg));
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(3,3,7,21)));
+
+            // _cv2c.ImShow(_imgProc.Run(_originImg));
+            // _cv2c.ImShow(_imgProc.Run(_originImg,0.38));
+
+            // _cv2c.ImShow(_imgProc.Run(_originImg));
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(3,3,3.7)));
+
+
         }
 
         // ****************************************
@@ -46,13 +62,13 @@ namespace ImShowCustom
         private void InitGui()
         {
             _paned.Position = 300;
-            _boxLeft.Add(_blur);
+            _boxLeft.Add(_imgProc);
             _boxRight.Add(_cv2c);
         }
 
         private void InitEvents()
         {
-            _blur.OnChangedImage += OnChangedImage;
+            _imgProc.OnChangedImage += OnChangedImage;
         }
 
         // ****************************************
