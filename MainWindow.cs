@@ -17,7 +17,9 @@ namespace ImShowCustom
         // private LibBilateralFilter _imgProc = new();
         // private LibFastNlMeansDenoisingColored _imgProc = new();
         // private LibFilter2D _imgProc = new();
-        private LibUnSharp _imgProc = new();
+        // private LibUnSharp _imgProc = new();
+        // private LibDilate _imgProc = new();
+        private LibErode _imgProc = new();
         private LibImShow _cv2c = new();
         private Mat _originImg = null;
 
@@ -32,26 +34,16 @@ namespace ImShowCustom
             InitEvents();
 
             _originImg = Cv2.ImRead("lenna.png", ImreadModes.Color);
-            // _cv2c.ImShow(_imgProc.Run(_originImg));
-            // _cv2c.ImShow(_imgProc.Run(_originImg,(20,20)));
-
-            // _cv2c.ImShow(_imgProc.Run(_originImg));
-            // _cv2c.ImShow(_imgProc.Run(_originImg,(20,20,20.6)));
-
-            // _cv2c.ImShow(_imgProc.Run(_originImg));
-            // _cv2c.ImShow(_imgProc.Run(_originImg,20));
-
-            // _cv2c.ImShow(_imgProc.Run(_originImg));
-            // _cv2c.ImShow(_imgProc.Run(_originImg,(10,25,10)));
-
-            // _cv2c.ImShow(_imgProc.Run(_originImg));
-            // _cv2c.ImShow(_imgProc.Run(_originImg,(3,3,7,21)));
-
-            // _cv2c.ImShow(_imgProc.Run(_originImg));
-            // _cv2c.ImShow(_imgProc.Run(_originImg,0.38));
-
-            // _cv2c.ImShow(_imgProc.Run(_originImg));
-            // _cv2c.ImShow(_imgProc.Run(_originImg,(3,3,3.7)));
+            _cv2c.ImShow(_imgProc.Run(_originImg));
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(20,20)));      // LibBlur
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(20,20,20.6))); // LibGaussianBlur
+            // _cv2c.ImShow(_imgProc.Run(_originImg,20));           // LibMedianBlur
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(10,25,10)));   // LibBilateralFilter
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(3,3,7,21)));   // LibFastNlMeansDenoisingColored
+            // _cv2c.ImShow(_imgProc.Run(_originImg,0.38));         // LibFilter2D
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(3,3,3.7)));    // LibUnSharp
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(4,4)));        // LibDilate
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(4,4)));        // LibErode
 
 
         }
