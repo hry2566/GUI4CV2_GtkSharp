@@ -2,14 +2,14 @@
 using Gtk;
 using OpenCvSharp;
 
-class LibFilter2D : Box
+class LibSharp : Box
 {
     private LibScaleBox _scaleKernel = new();
     private Mat _originImg = null;
     public delegate void eventHandler(Mat img);
     public eventHandler OnChangedImage = null;
 
-    public LibFilter2D()
+    public LibSharp()
     {
         InitGui();
         InitEvents();
@@ -37,8 +37,8 @@ class LibFilter2D : Box
     private void OnChangeScale(double value)
     {
         if (_originImg == null) { return; }
-        double Param = _scaleKernel.Get();
-        Mat img = Filter2D(_originImg, Param);
+        double Param = GetParam();
+        Mat img = Sharp(_originImg, Param);
         if (OnChangedImage == null) { return; }
         OnChangedImage(img);
     }
@@ -46,7 +46,7 @@ class LibFilter2D : Box
     // ****************************************
     // Private Function
     // ****************************************
-    private Mat Filter2D(Mat sourceImg, double Param)
+    private Mat Sharp(Mat sourceImg, double Param)
     {
         Mat dstImg = new();
         double[,] kernel = {
@@ -58,19 +58,24 @@ class LibFilter2D : Box
         return dstImg;
     }
 
+    private void SetParam(double Param)
+    {
+        _scaleKernel.Set(Param);
+    }
+
     // ****************************************
     // Public Function
     // ****************************************
-    public Mat Run(Mat sourceImg, double Param = default)
-    {
-        _originImg = sourceImg;
-        if (Param == default) { Param = _scaleKernel.Get(); }
-        else { _scaleKernel.Set(Param); }
-        return Filter2D(_originImg, Param);
-    }
-
     public double GetParam()
     {
         return _scaleKernel.Get();
+    }
+
+    public Mat Run(Mat sourceImg, double Param = default)
+    {
+        _originImg = sourceImg;
+        if (Param == default) { Param = GetParam(); }
+        else { SetParam(Param); }
+        return Sharp(_originImg, Param);
     }
 }

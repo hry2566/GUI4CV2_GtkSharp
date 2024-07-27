@@ -1,5 +1,4 @@
 
-using Gdk;
 using Gtk;
 using OpenCvSharp;
 
@@ -46,7 +45,7 @@ class LibUnSharp : Box
     private void OnChangeScale(double value)
     {
         if (_originImg == null) { return; }
-        (int x, int y, double k) Param = ((int)_scaleKernelX.Get(), (int)_scaleKernelY.Get(), _scaleK.Get()); ;
+        (int x, int y, double k) Param = GetParam();
         Mat img = UnSharp(_originImg, Param);
         if (OnChangedImage == null) { return; }
         OnChangedImage(img);
@@ -68,24 +67,26 @@ class LibUnSharp : Box
         return dstImg;
     }
 
+    private void SetParam((int x, int y, double k) Param)
+    {
+        _scaleKernelX.Set(Param.x);
+        _scaleKernelY.Set(Param.y);
+        _scaleK.Set(Param.k);
+    }
+
     // ****************************************
     // Public Function
     // ****************************************
-    public Mat Run(Mat sourceImg, (int x, int y, double k) Param = default)
-    {
-        _originImg = sourceImg;
-        if (Param == default) { Param = ((int)_scaleKernelX.Get(), (int)_scaleKernelY.Get(), _scaleK.Get()); }
-        else
-        {
-            _scaleKernelX.Set(Param.x);
-            _scaleKernelY.Set(Param.y);
-            _scaleK.Set(Param.k);
-        }
-        return UnSharp(_originImg, Param);
-    }
-
     public (int x, int y, double k) GetParam()
     {
         return ((int)_scaleKernelX.Get(), (int)_scaleKernelY.Get(), _scaleK.Get());
+    }
+
+    public Mat Run(Mat sourceImg, (int x, int y, double k) Param = default)
+    {
+        _originImg = sourceImg;
+        if (Param == default) { Param = GetParam(); }
+        else { SetParam(Param); }
+        return UnSharp(_originImg, Param);
     }
 }

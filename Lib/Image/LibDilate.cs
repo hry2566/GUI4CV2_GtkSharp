@@ -41,9 +41,7 @@ class LibDilate : Box
     private void OnChangeScale(double value)
     {
         if (_originImg == null) { return; }
-        (int x, int y) Param;
-        Param.x = (int)_scaleX.Get();
-        Param.y = (int)_scaleY.Get();
+        (int x, int y) Param = GetParam();
         Mat img = Dilate(_originImg, Param);
         if (OnChangedImage == null) { return; }
         OnChangedImage(img);
@@ -59,27 +57,25 @@ class LibDilate : Box
         return distImg;
     }
 
+    private void SetParam((int x, int y) Param)
+    {
+        _scaleX.Set(Param.x);
+        _scaleY.Set(Param.y);
+    }
+
     // ****************************************
     // Public Function
     // ****************************************
-    public Mat Run(Mat sourceImg, (int x, int y) Param = default)
-    {
-        _originImg = sourceImg;
-        if (Param == default)
-        {
-            Param.x = (int)_scaleX.Get();
-            Param.y = (int)_scaleY.Get();
-        }
-        else
-        {
-            _scaleX.Set(Param.x);
-            _scaleY.Set(Param.y);
-        }
-        return Dilate(_originImg, Param);
-    }
-
     public (int x, int y) GetParam()
     {
         return ((int)_scaleX.Get(), (int)_scaleY.Get());
+    }
+
+    public Mat Run(Mat sourceImg, (int x, int y) Param = default)
+    {
+        _originImg = sourceImg;
+        if (Param == default) { Param = GetParam(); }
+        else { SetParam(Param); }
+        return Dilate(_originImg, Param);
     }
 }

@@ -16,7 +16,7 @@ namespace ImShowCustom
         // private LibMedianBlur _imgProc=new();
         // private LibBilateralFilter _imgProc = new();
         // private LibFastNlMeansDenoisingColored _imgProc = new();
-        // private LibFilter2D _imgProc = new();
+        // private LibSharp _imgProc = new();
         // private LibUnSharp _imgProc = new();
         // private LibDilate _imgProc = new();
         // private LibErode _imgProc = new();

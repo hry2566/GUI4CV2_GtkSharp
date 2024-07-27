@@ -49,12 +49,7 @@ class LibFastNlMeansDenoisingColored : Box
     private void OnChangeScale(double value)
     {
         if (_originImg == null) { return; }
-        (float h, float hColor, int templateWindowSize, int searchWindowSize) Param = default;
-        Param.h = (float)_scaleH.Get();
-        Param.hColor = (float)_scaleHColor.Get();
-        Param.templateWindowSize = (int)_scaleTemplateWindowSize.Get();
-        Param.searchWindowSize = (int)_scaleSearchWindowSize.Get();
-
+        (float h, float hColor, int templateWindowSize, int searchWindowSize) Param = GetParam();
         Mat img = GaussianBlur(_originImg, Param);
         if (OnChangedImage == null) { return; }
         OnChangedImage(img);
@@ -75,32 +70,27 @@ class LibFastNlMeansDenoisingColored : Box
         return dstImg;
     }
 
+    private void SetParam((float h, float hColor, int templateWindowSize, int searchWindowSize) Param)
+    {
+        _scaleH.Set(Param.h);
+        _scaleHColor.Set(Param.hColor);
+        _scaleTemplateWindowSize.Set(Param.templateWindowSize);
+        _scaleSearchWindowSize.Set(Param.searchWindowSize);
+    }
+
     // ****************************************
     // Public Function
     // ****************************************
-    public Mat Run(Mat sourceImg, (float h, float hColor, int templateWindowSize, int searchWindowSize) Param = default)
-    {
-        _originImg = sourceImg;
-
-        if (Param == default)
-        {
-            Param.h = (float)_scaleH.Get();
-            Param.hColor = (float)_scaleHColor.Get();
-            Param.templateWindowSize = (int)_scaleTemplateWindowSize.Get();
-            Param.searchWindowSize = (int)_scaleSearchWindowSize.Get();
-        }
-        else
-        {
-            _scaleH.Set(Param.h);
-            _scaleHColor.Set(Param.hColor);
-            _scaleTemplateWindowSize.Set(Param.templateWindowSize);
-            _scaleSearchWindowSize.Set(Param.searchWindowSize);
-        }
-        return GaussianBlur(_originImg, Param);
-    }
-
     public (float h, float hColor, int templateWindowSize, int searchWindowSize) GetParam()
     {
         return ((float)_scaleH.Get(), (float)_scaleHColor.Get(), (int)_scaleTemplateWindowSize.Get(), (int)_scaleSearchWindowSize.Get());
+    }
+
+    public Mat Run(Mat sourceImg, (float h, float hColor, int templateWindowSize, int searchWindowSize) Param = default)
+    {
+        _originImg = sourceImg;
+        if (Param == default) { Param = GetParam(); }
+        else { SetParam(Param); }
+        return GaussianBlur(_originImg, Param);
     }
 }

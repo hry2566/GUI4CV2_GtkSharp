@@ -37,7 +37,7 @@ class LibMedianBlur : Box
     private void OnChangeScale(double value)
     {
         if (_originImg == null) { return; }
-        int Param = (int)_scaleKernel.Get();
+        int Param = GetParam();
         if (Param % 2 == 0) { Param += 1; }
 
         Mat img = MedianBlur(_originImg, Param);
@@ -55,27 +55,24 @@ class LibMedianBlur : Box
         return dstImg;
     }
 
+    private void SetParam(int Param)
+    {
+        _scaleKernel.Set(Param);
+    }
+
     // ****************************************
     // Public Function
     // ****************************************
-    public Mat Run(Mat sourceImg, int Param = default)
-    {
-        _originImg = sourceImg;
-
-        if (Param == default)
-        {
-            Param = (int)_scaleKernel.Get();
-        }
-        else
-        {
-            if (Param % 2 == 0) { Param += 1; }
-            _scaleKernel.Set(Param);
-        }
-        return MedianBlur(_originImg, Param);
-    }
-
     public int GetParam()
     {
         return (int)_scaleKernel.Get();
+    }
+
+    public Mat Run(Mat sourceImg, int Param = default)
+    {
+        _originImg = sourceImg;
+        if (Param == default) { Param = GetParam(); }
+        else { SetParam(Param); }
+        return MedianBlur(_originImg, Param);
     }
 }

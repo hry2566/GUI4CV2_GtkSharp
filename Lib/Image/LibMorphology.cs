@@ -52,10 +52,7 @@ class LibMorphology : Box
     private void OnChangeScale(double value)
     {
         if (_originImg == null) { return; }
-        (int x, int y, int index) Param;
-        Param.x = (int)_scaleX.Get();
-        Param.y = (int)_scaleY.Get();
-        Param.index = _optMenu.GetIndex();
+        (int index, int x, int y) Param = GetParam();
         Mat img = Morphology(_originImg, Param);
         if (OnChangedImage == null) { return; }
         OnChangedImage(img);
@@ -64,7 +61,7 @@ class LibMorphology : Box
     // ****************************************
     // Private Function
     // ****************************************
-    private Mat Morphology(Mat sourceImg, (int x, int y, int index) Param)
+    private Mat Morphology(Mat sourceImg, (int index, int x, int y) Param)
     {
         var operation = MorphTypes.Open;
         if (Param.index == 1) { operation = MorphTypes.Close; }
@@ -76,29 +73,26 @@ class LibMorphology : Box
         return distImg;
     }
 
+    private void SetParam((int index, int x, int y) Param)
+    {
+        _optMenu.SetIndex(Param.index);
+        _scaleX.Set(Param.x);
+        _scaleY.Set(Param.y);
+    }
+
     // ****************************************
     // Public Function
     // ****************************************
-    public Mat Run(Mat sourceImg, (int x, int y, int index) Param = default)
+    public (int index, int x, int y) GetParam()
     {
-        _originImg = sourceImg;
-        if (Param == default)
-        {
-            Param.x = (int)_scaleX.Get();
-            Param.y = (int)_scaleY.Get();
-            Param.index = _optMenu.GetIndex();
-        }
-        else
-        {
-            _scaleX.Set(Param.x);
-            _scaleY.Set(Param.y);
-            _optMenu.SetIndex(Param.index);
-        }
-        return Morphology(_originImg, Param);
+        return (_optMenu.GetIndex(), (int)_scaleX.Get(), (int)_scaleY.Get());
     }
 
-    public (int x, int y, int index) GetParam()
+    public Mat Run(Mat sourceImg, (int index, int x, int y) Param = default)
     {
-        return ((int)_scaleX.Get(), (int)_scaleY.Get(), _optMenu.GetIndex());
+        _originImg = sourceImg;
+        if (Param == default) { Param = GetParam(); }
+        else { SetParam(Param); }
+        return Morphology(_originImg, Param);
     }
 }

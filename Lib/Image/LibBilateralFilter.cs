@@ -45,12 +45,7 @@ class LibBilateralFilter : Box
     private void OnChangeScale(double value)
     {
         if (_originImg == null) { return; }
-        (int d, int sigmaColor, int sigmaSpace) Param;
-
-        Param.d = (int)_scaleD.Get();
-        Param.sigmaColor = (int)_scaleSigmaColor.Get();
-        Param.sigmaSpace = (int)_scaleSigmaSpace.Get();
-
+        (int d, int sigmaColor, int sigmaSpace) Param = GetParam();
         Mat img = GaussianBlur(_originImg, Param);
         if (OnChangedImage == null) { return; }
         OnChangedImage(img);
@@ -66,30 +61,26 @@ class LibBilateralFilter : Box
         return dstImg;
     }
 
+    private void SetParam((int d, int sigmaColor, int sigmaSpace) Param)
+    {
+        _scaleD.Set(Param.d);
+        _scaleSigmaColor.Set(Param.sigmaColor);
+        _scaleSigmaSpace.Set(Param.sigmaSpace);
+    }
+
     // ****************************************
     // Public Function
     // ****************************************
-    public Mat Run(Mat sourceImg, (int d, int sigmaColor, int sigmaSpace) Param = default)
-    {
-        _originImg = sourceImg;
-
-        if (Param == default)
-        {
-            Param.d = (int)_scaleD.Get();
-            Param.sigmaColor = (int)_scaleSigmaColor.Get();
-            Param.sigmaSpace = (int)_scaleSigmaSpace.Get();
-        }
-        else
-        {
-            _scaleD.Set(Param.d);
-            _scaleSigmaColor.Set(Param.sigmaColor);
-            _scaleSigmaSpace.Set(Param.sigmaSpace);
-        }
-        return GaussianBlur(_originImg, Param);
-    }
-
     public (int d, int sigmaColor, int sigmaSpace) GetParam()
     {
         return ((int)_scaleD.Get(), (int)_scaleSigmaColor.Get(), (int)_scaleSigmaSpace.Get());
+    }
+
+    public Mat Run(Mat sourceImg, (int d, int sigmaColor, int sigmaSpace) Param = default)
+    {
+        _originImg = sourceImg;
+        if (Param == default) { Param = GetParam(); }
+        else { SetParam(Param); }
+        return GaussianBlur(_originImg, Param);
     }
 }
