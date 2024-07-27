@@ -20,7 +20,8 @@ namespace ImShowCustom
         // private LibUnSharp _imgProc = new();
         // private LibDilate _imgProc = new();
         // private LibErode _imgProc = new();
-        private LibMorphology _imgProc = new();
+        // private LibMorphology _imgProc = new();
+        private LibThreshold _imgProc = new();
 
         private LibImShow _cv2c = new();
         private Mat _originImg = null;
@@ -46,7 +47,8 @@ namespace ImShowCustom
             // _cv2c.ImShow(_imgProc.Run(_originImg,(3,3,3.7)));    // LibUnSharp
             // _cv2c.ImShow(_imgProc.Run(_originImg,(4,4)));        // LibDilate
             // _cv2c.ImShow(_imgProc.Run(_originImg,(4,4)));        // LibErode
-            // _cv2c.ImShow(_imgProc.Run(_originImg,(4,4,2)));        // LibMorphology
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(4,4,2)));      // LibMorphology
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(0,120,255)));  // LibThreshold
 
 
         }
