@@ -21,7 +21,9 @@ namespace ImShowCustom
         // private LibDilate _imgProc = new();
         // private LibErode _imgProc = new();
         // private LibMorphology _imgProc = new();
-        private LibThreshold _imgProc = new();
+        // private LibThreshold _imgProc = new();
+        // private LibInRangeRGB _imgProc = new();
+        private LibInRangeHSV _imgProc = new();
 
         private LibImShow _cv2c = new();
         private Mat _originImg = null;
@@ -38,19 +40,18 @@ namespace ImShowCustom
 
             _originImg = Cv2.ImRead("lenna.png", ImreadModes.Color);
             _cv2c.ImShow(_imgProc.Run(_originImg));
-            // _cv2c.ImShow(_imgProc.Run(_originImg,(20,20)));      // LibBlur
-            // _cv2c.ImShow(_imgProc.Run(_originImg,(20,20,20.6))); // LibGaussianBlur
-            // _cv2c.ImShow(_imgProc.Run(_originImg,20));           // LibMedianBlur
-            // _cv2c.ImShow(_imgProc.Run(_originImg,(10,25,10)));   // LibBilateralFilter
-            // _cv2c.ImShow(_imgProc.Run(_originImg,(3,3,7,21)));   // LibFastNlMeansDenoisingColored
-            // _cv2c.ImShow(_imgProc.Run(_originImg,0.38));         // LibFilter2D
-            // _cv2c.ImShow(_imgProc.Run(_originImg,(3,3,3.7)));    // LibUnSharp
-            // _cv2c.ImShow(_imgProc.Run(_originImg,(4,4)));        // LibDilate
-            // _cv2c.ImShow(_imgProc.Run(_originImg,(4,4)));        // LibErode
-            // _cv2c.ImShow(_imgProc.Run(_originImg,(4,4,2)));      // LibMorphology
-            // _cv2c.ImShow(_imgProc.Run(_originImg,(0,120,255)));  // LibThreshold
-
-
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(20,20)));                     // LibBlur
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(20,20,20.6)));                // LibGaussianBlur
+            // _cv2c.ImShow(_imgProc.Run(_originImg,20));                          // LibMedianBlur
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(10,25,10)));                  // LibBilateralFilter
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(3,3,7,21)));                  // LibFastNlMeansDenoisingColored
+            // _cv2c.ImShow(_imgProc.Run(_originImg,0.38));                        // LibSharp
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(3,3,3.7)));                   // LibUnSharp
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(4,4)));                       // LibDilate
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(4,4)));                       // LibErode
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(4,4,2)));                     // LibMorphology
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(0,120,255)));                 // LibThreshold
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(100,255,100,255,100,255)));   // LibTInRGB
         }
 
         // ****************************************
