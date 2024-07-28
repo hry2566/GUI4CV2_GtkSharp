@@ -23,7 +23,8 @@ namespace ImShowCustom
         // private LibMorphology _imgProc = new();
         // private LibThreshold _imgProc = new();
         // private LibInRangeRGB _imgProc = new();
-        private LibInRangeHSV _imgProc = new();
+        // private LibInRangeHSV _imgProc = new();
+        private LibAdaptiveThreshold _imgProc = new();
 
         private LibImShow _cv2c = new();
         private Mat _originImg = null;
@@ -51,7 +52,8 @@ namespace ImShowCustom
             // _cv2c.ImShow(_imgProc.Run(_originImg,(4,4)));                       // LibErode
             // _cv2c.ImShow(_imgProc.Run(_originImg,(4,4,2)));                     // LibMorphology
             // _cv2c.ImShow(_imgProc.Run(_originImg,(0,120,255)));                 // LibThreshold
-            // _cv2c.ImShow(_imgProc.Run(_originImg,(100,255,100,255,100,255)));   // LibTInRGB
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(100,255,100,255,100,255)));   // LibTInRangeRGB
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(90,359,80,255,120,255)));     // LibTInRangeHSV
         }
 
         // ****************************************
