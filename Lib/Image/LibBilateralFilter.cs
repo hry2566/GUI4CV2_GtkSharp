@@ -46,7 +46,7 @@ class LibBilateralFilter : Box
     {
         if (_originImg == null) { return; }
         (int d, int sigmaColor, int sigmaSpace) Param = GetParam();
-        Mat img = GaussianBlur(_originImg, Param);
+        Mat img = ImageProcessing(_originImg, Param);
         if (OnChangedImage == null) { return; }
         OnChangedImage(img);
     }
@@ -54,7 +54,7 @@ class LibBilateralFilter : Box
     // ****************************************
     // Private Function
     // ****************************************
-    private Mat GaussianBlur(Mat sourceImg, (int d, int sigmaColor, int sigmaSpace) Param)
+    private Mat ImageProcessing(Mat sourceImg, (int d, int sigmaColor, int sigmaSpace) Param)
     {
         Mat dstImg = new();
         Cv2.BilateralFilter(sourceImg, dstImg, Param.d, Param.sigmaColor, Param.sigmaSpace);
@@ -81,6 +81,6 @@ class LibBilateralFilter : Box
         _originImg = sourceImg;
         if (Param == default) { Param = GetParam(); }
         else { SetParam(Param); }
-        return GaussianBlur(_originImg, Param);
+        return ImageProcessing(_originImg, Param);
     }
 }

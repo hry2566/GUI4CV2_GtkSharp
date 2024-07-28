@@ -46,7 +46,7 @@ class LibUnSharp : Box
     {
         if (_originImg == null) { return; }
         (int x, int y, double k) Param = GetParam();
-        Mat img = UnSharp(_originImg, Param);
+        Mat img = ImageProcessing(_originImg, Param);
         if (OnChangedImage == null) { return; }
         OnChangedImage(img);
     }
@@ -54,7 +54,7 @@ class LibUnSharp : Box
     // ****************************************
     // Private Function
     // ****************************************
-    private Mat UnSharp(Mat sourceImg, (int x, int y, double k) Param)
+    private Mat ImageProcessing(Mat sourceImg, (int x, int y, double k) Param)
     {
         Mat dstImg = new();
         Cv2.Blur(sourceImg, dstImg, new OpenCvSharp.Size(Param.x, Param.y));
@@ -87,6 +87,6 @@ class LibUnSharp : Box
         _originImg = sourceImg;
         if (Param == default) { Param = GetParam(); }
         else { SetParam(Param); }
-        return UnSharp(_originImg, Param);
+        return ImageProcessing(_originImg, Param);
     }
 }

@@ -40,7 +40,7 @@ class LibMedianBlur : Box
         int Param = GetParam();
         if (Param % 2 == 0) { Param += 1; }
 
-        Mat img = MedianBlur(_originImg, Param);
+        Mat img = ImageProcessing(_originImg, Param);
         if (OnChangedImage == null) { return; }
         OnChangedImage(img);
     }
@@ -48,7 +48,7 @@ class LibMedianBlur : Box
     // ****************************************
     // Private Function
     // ****************************************
-    private Mat MedianBlur(Mat sourceImg, int Param)
+    private Mat ImageProcessing(Mat sourceImg, int Param)
     {
         Mat dstImg = new();
         Cv2.MedianBlur(sourceImg, dstImg, Param);
@@ -73,6 +73,6 @@ class LibMedianBlur : Box
         _originImg = sourceImg;
         if (Param == default) { Param = GetParam(); }
         else { SetParam(Param); }
-        return MedianBlur(_originImg, Param);
+        return ImageProcessing(_originImg, Param);
     }
 }

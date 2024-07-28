@@ -38,7 +38,7 @@ class LibSharp : Box
     {
         if (_originImg == null) { return; }
         double Param = GetParam();
-        Mat img = Sharp(_originImg, Param);
+        Mat img = ImageProcessing(_originImg, Param);
         if (OnChangedImage == null) { return; }
         OnChangedImage(img);
     }
@@ -46,7 +46,7 @@ class LibSharp : Box
     // ****************************************
     // Private Function
     // ****************************************
-    private Mat Sharp(Mat sourceImg, double Param)
+    private Mat ImageProcessing(Mat sourceImg, double Param)
     {
         Mat dstImg = new();
         double[,] kernel = {
@@ -76,6 +76,6 @@ class LibSharp : Box
         _originImg = sourceImg;
         if (Param == default) { Param = GetParam(); }
         else { SetParam(Param); }
-        return Sharp(_originImg, Param);
+        return ImageProcessing(_originImg, Param);
     }
 }

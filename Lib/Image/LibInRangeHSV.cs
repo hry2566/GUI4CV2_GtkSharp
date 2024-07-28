@@ -61,7 +61,7 @@ class LibInRangeHSV : Box
     {
         if (_originImg == null) { return; }
         (int HMin, int HMax, int SMin, int SMax, int VMin, int VMax) Param = GetParam();
-        Mat img = Blur(_originImg, Param);
+        Mat img = ImageProcessing(_originImg, Param);
         if (OnChangedImage == null) { return; }
         OnChangedImage(img);
     }
@@ -69,7 +69,7 @@ class LibInRangeHSV : Box
     // ****************************************
     // Private Function
     // ****************************************
-    private Mat Blur(Mat sourceImg, (int HMin, int HMax, int SMin, int SMax, int VMin, int VMax) Param)
+    private Mat ImageProcessing(Mat sourceImg, (int HMin, int HMax, int SMin, int SMax, int VMin, int VMax) Param)
     {
         Mat distImg = new();
         Cv2.CvtColor(sourceImg, distImg, ColorConversionCodes.BGR2HSV_FULL);
@@ -115,6 +115,6 @@ class LibInRangeHSV : Box
         _originImg = sourceImg;
         if (Param == default) { Param = GetParam(); }
         else { SetParam(Param); }
-        return Blur(_originImg, Param);
+        return ImageProcessing(_originImg, Param);
     }
 }

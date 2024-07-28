@@ -50,7 +50,7 @@ class LibFastNlMeansDenoisingColored : Box
     {
         if (_originImg == null) { return; }
         (float h, float hColor, int templateWindowSize, int searchWindowSize) Param = GetParam();
-        Mat img = GaussianBlur(_originImg, Param);
+        Mat img = ImageProcessing(_originImg, Param);
         if (OnChangedImage == null) { return; }
         OnChangedImage(img);
     }
@@ -58,7 +58,7 @@ class LibFastNlMeansDenoisingColored : Box
     // ****************************************
     // Private Function
     // ****************************************
-    private Mat GaussianBlur(Mat sourceImg, (float h, float hColor, int templateWindowSize, int searchWindowSize) Param)
+    private Mat ImageProcessing(Mat sourceImg, (float h, float hColor, int templateWindowSize, int searchWindowSize) Param)
     {
         Mat dstImg = new();
         Cv2.FastNlMeansDenoisingColored(sourceImg,
@@ -91,6 +91,6 @@ class LibFastNlMeansDenoisingColored : Box
         _originImg = sourceImg;
         if (Param == default) { Param = GetParam(); }
         else { SetParam(Param); }
-        return GaussianBlur(_originImg, Param);
+        return ImageProcessing(_originImg, Param);
     }
 }

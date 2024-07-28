@@ -52,7 +52,7 @@ class LibThreshold : Box
     {
         if (_originImg == null) { return; }
         (int type, double th, double val) Param = GetParam();
-        Mat img = Threshold(_originImg, Param);
+        Mat img = ImageProcessing(_originImg, Param);
         if (OnChangedImage == null) { return; }
         OnChangedImage(img);
     }
@@ -60,7 +60,7 @@ class LibThreshold : Box
     // ****************************************
     // Private Function
     // ****************************************
-    private Mat Threshold(Mat sourceImg, (int type, double th, double val) Param)
+    private Mat ImageProcessing(Mat sourceImg, (int type, double th, double val) Param)
     {
         var type = ThresholdTypes.Binary;
         if (Param.type == 1) { type = ThresholdTypes.BinaryInv; }
@@ -94,6 +94,6 @@ class LibThreshold : Box
         _originImg = sourceImg;
         if (Param == default) { Param = GetParam(); }
         else { SetParam(Param); }
-        return Threshold(_originImg, Param);
+        return ImageProcessing(_originImg, Param);
     }
 }

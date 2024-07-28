@@ -60,8 +60,8 @@ class LibInRangeRGB : Box
     private void OnChangeScale(double value)
     {
         if (_originImg == null) { return; }
-        (int RMin, int RMax, int GMin, int GMax, int BMin, int BMax)Param = GetParam();
-        Mat img = Blur(_originImg, Param);
+        (int RMin, int RMax, int GMin, int GMax, int BMin, int BMax) Param = GetParam();
+        Mat img = ImageProcessing(_originImg, Param);
         if (OnChangedImage == null) { return; }
         OnChangedImage(img);
     }
@@ -69,7 +69,7 @@ class LibInRangeRGB : Box
     // ****************************************
     // Private Function
     // ****************************************
-    private Mat Blur(Mat sourceImg, (int RMin, int RMax, int GMin, int GMax, int BMin, int BMax) Param)
+    private Mat ImageProcessing(Mat sourceImg, (int RMin, int RMax, int GMin, int GMax, int BMin, int BMax) Param)
     {
         Mat distImg = new();
         Scalar s_min = new Scalar(Param.BMin, Param.GMin, Param.RMin);
@@ -101,6 +101,6 @@ class LibInRangeRGB : Box
         _originImg = sourceImg;
         if (Param == default) { Param = GetParam(); }
         else { SetParam(Param); }
-        return Blur(_originImg, Param);
+        return ImageProcessing(_originImg, Param);
     }
 }

@@ -48,7 +48,7 @@ class LibGaussianBlur : Box
         (int x, int y, double sigma) Param = GetParam();
         if (Param.x % 2 == 0) { Param.x += 1; }
         if (Param.y % 2 == 0) { Param.y += 1; }
-        Mat img = GaussianBlur(_originImg, Param);
+        Mat img = ImageProcessing(_originImg, Param);
         if (OnChangedImage == null) { return; }
         OnChangedImage(img);
     }
@@ -56,7 +56,7 @@ class LibGaussianBlur : Box
     // ****************************************
     // Private Function
     // ****************************************
-    private Mat GaussianBlur(Mat sourceImg, (int x, int y, double sigma) Param)
+    private Mat ImageProcessing(Mat sourceImg, (int x, int y, double sigma) Param)
     {
         Mat dstImg = new();
         Cv2.GaussianBlur(sourceImg, dstImg, new OpenCvSharp.Size(Param.x, Param.y), Param.sigma);
@@ -83,6 +83,6 @@ class LibGaussianBlur : Box
         _originImg = sourceImg;
         if (Param == default) { Param = GetParam(); }
         else { SetParam(Param); }
-        return GaussianBlur(_originImg, Param);
+        return ImageProcessing(_originImg, Param);
     }
 }

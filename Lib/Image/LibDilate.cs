@@ -42,7 +42,7 @@ class LibDilate : Box
     {
         if (_originImg == null) { return; }
         (int x, int y) Param = GetParam();
-        Mat img = Dilate(_originImg, Param);
+        Mat img = ImageProcessing(_originImg, Param);
         if (OnChangedImage == null) { return; }
         OnChangedImage(img);
     }
@@ -50,7 +50,7 @@ class LibDilate : Box
     // ****************************************
     // Private Function
     // ****************************************
-    private Mat Dilate(Mat sourceImg, (int x, int y) Param)
+    private Mat ImageProcessing(Mat sourceImg, (int x, int y) Param)
     {
         Mat distImg = new();
         Cv2.Dilate(sourceImg, distImg, Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(Param.x, Param.y)));
@@ -76,6 +76,6 @@ class LibDilate : Box
         _originImg = sourceImg;
         if (Param == default) { Param = GetParam(); }
         else { SetParam(Param); }
-        return Dilate(_originImg, Param);
+        return ImageProcessing(_originImg, Param);
     }
 }

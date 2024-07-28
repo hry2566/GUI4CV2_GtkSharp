@@ -53,7 +53,7 @@ class LibMorphology : Box
     {
         if (_originImg == null) { return; }
         (int index, int x, int y) Param = GetParam();
-        Mat img = Morphology(_originImg, Param);
+        Mat img = ImageProcessing(_originImg, Param);
         if (OnChangedImage == null) { return; }
         OnChangedImage(img);
     }
@@ -61,7 +61,7 @@ class LibMorphology : Box
     // ****************************************
     // Private Function
     // ****************************************
-    private Mat Morphology(Mat sourceImg, (int index, int x, int y) Param)
+    private Mat ImageProcessing(Mat sourceImg, (int index, int x, int y) Param)
     {
         var operation = MorphTypes.Open;
         if (Param.index == 1) { operation = MorphTypes.Close; }
@@ -93,6 +93,6 @@ class LibMorphology : Box
         _originImg = sourceImg;
         if (Param == default) { Param = GetParam(); }
         else { SetParam(Param); }
-        return Morphology(_originImg, Param);
+        return ImageProcessing(_originImg, Param);
     }
 }
