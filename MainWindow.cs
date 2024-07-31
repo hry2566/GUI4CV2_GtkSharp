@@ -25,7 +25,8 @@ namespace ImShowCustom
         // private LibInRangeRGB _imgProc = new();
         // private LibInRangeHSV _imgProc = new();
         // private LibAdaptiveThreshold _imgProc = new();
-        private LibCanny _imgProc = new();
+        // private LibCanny _imgProc = new();
+        private LibLaplacian _imgProc = new();
 
         private LibImShow _cv2c = new();
         private Mat _originImg = null;
@@ -57,6 +58,7 @@ namespace ImShowCustom
             // _cv2c.ImShow(_imgProc.Run(_originImg,(90,359,80,255,120,255)));     // LibTInRangeHSV
             // _cv2c.ImShow(_imgProc.Run(_originImg,(1,5,5)));                     // LibAdaptivehreshold
             // _cv2c.ImShow(_imgProc.Run(_originImg,(3,160,70)));                  // LibCanny
+            // _cv2c.ImShow(_imgProc.Run(_originImg,3));                           // LibLaplacian
         }
 
         // ****************************************
