@@ -27,7 +27,8 @@ namespace ImShowCustom
         // private LibAdaptiveThreshold _imgProc = new();
         // private LibCanny _imgProc = new();
         // private LibLaplacian _imgProc = new();
-        private LibSobel _imgProc = new();
+        // private LibSobel _imgProc = new();
+        private LibConvertScaleAbs _imgProc = new();
 
         private LibImShow _cv2c = new();
         private Mat _originImg = null;
@@ -61,6 +62,7 @@ namespace ImShowCustom
             // _cv2c.ImShow(_imgProc.Run(_originImg,(3,160,70)));                  // LibCanny
             // _cv2c.ImShow(_imgProc.Run(_originImg,3));                           // LibLaplacian
             // _cv2c.ImShow(_imgProc.Run(_originImg,3));                           // LibSobel
+            // _cv2c.ImShow(_imgProc.Run(_originImg,(1.87,-80)));                  // LibConvertScaleAbs
         }
 
         // ****************************************
