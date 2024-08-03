@@ -29,7 +29,8 @@ namespace ImShowCustom
         // private LibLaplacian _imgProc = new();
         // private LibSobel _imgProc = new();
         // private LibConvertScaleAbs _imgProc = new();
-        private LibGamma _imgProc = new();
+        // private LibGamma _imgProc = new();
+        private LibWhiteBalance _imgProc = new();
 
         private LibImShow _cv2c = new();
         private Mat _originImg = null;
