@@ -39,8 +39,7 @@ class LibLaplacian : Box
         if (_originImg == null) { return; }
         int Param = GetParam();
         Mat img = ImageProcessing(_originImg, Param);
-        if (OnChangedImage == null) { return; }
-        OnChangedImage(img);
+        OnChangedImage?.Invoke(img);
     }
 
     // ****************************************

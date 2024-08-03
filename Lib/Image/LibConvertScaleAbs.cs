@@ -44,8 +44,7 @@ class LibConvertScaleAbs : Box
         if (_originImg == null) { return; }
         (double contrast, int brightness) Param = GetParam();
         Mat img = ImageProcessing(_originImg, Param);
-        if (OnChangedImage == null) { return; }
-        OnChangedImage(img);
+        OnChangedImage?.Invoke(img);
     }
 
     // ****************************************

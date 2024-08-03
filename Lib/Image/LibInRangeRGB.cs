@@ -62,8 +62,7 @@ class LibInRangeRGB : Box
         if (_originImg == null) { return; }
         (int RMin, int RMax, int GMin, int GMax, int BMin, int BMax) Param = GetParam();
         Mat img = ImageProcessing(_originImg, Param);
-        if (OnChangedImage == null) { return; }
-        OnChangedImage(img);
+        OnChangedImage?.Invoke(img);
     }
 
     // ****************************************

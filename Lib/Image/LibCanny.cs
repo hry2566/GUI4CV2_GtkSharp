@@ -47,8 +47,7 @@ class LibCanny : Box
         if (_originImg == null) { return; }
         (int kernel, int max, int min) Param = GetParam();
         Mat img = ImageProcessing(_originImg, Param);
-        if (OnChangedImage == null) { return; }
-        OnChangedImage(img);
+        OnChangedImage?.Invoke(img);
     }
 
     // ****************************************
@@ -75,7 +74,7 @@ class LibCanny : Box
     // ****************************************
     public (int kernel, int max, int min) GetParam()
     {
-        return ((int)_scaleKernel.Get(),(int)_scaleMax.Get(), (int)_scaleMin.Get());
+        return ((int)_scaleKernel.Get(), (int)_scaleMax.Get(), (int)_scaleMin.Get());
     }
 
     public Mat Run(Mat sourceImg, (int kernel, int max, int min) Param = default)

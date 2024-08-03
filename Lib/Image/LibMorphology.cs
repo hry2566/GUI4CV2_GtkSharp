@@ -54,8 +54,7 @@ class LibMorphology : Box
         if (_originImg == null) { return; }
         (int index, int x, int y) Param = GetParam();
         Mat img = ImageProcessing(_originImg, Param);
-        if (OnChangedImage == null) { return; }
-        OnChangedImage(img);
+        OnChangedImage?.Invoke(img);
     }
 
     // ****************************************

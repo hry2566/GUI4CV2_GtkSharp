@@ -47,8 +47,7 @@ class LibBilateralFilter : Box
         if (_originImg == null) { return; }
         (int d, int sigmaColor, int sigmaSpace) Param = GetParam();
         Mat img = ImageProcessing(_originImg, Param);
-        if (OnChangedImage == null) { return; }
-        OnChangedImage(img);
+        OnChangedImage?.Invoke(img);
     }
 
     // ****************************************

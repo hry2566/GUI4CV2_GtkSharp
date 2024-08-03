@@ -49,8 +49,7 @@ class LibGaussianBlur : Box
         if (Param.x % 2 == 0) { Param.x += 1; }
         if (Param.y % 2 == 0) { Param.y += 1; }
         Mat img = ImageProcessing(_originImg, Param);
-        if (OnChangedImage == null) { return; }
-        OnChangedImage(img);
+        OnChangedImage?.Invoke(img);
     }
 
     // ****************************************

@@ -41,8 +41,7 @@ class LibMedianBlur : Box
         if (Param % 2 == 0) { Param += 1; }
 
         Mat img = ImageProcessing(_originImg, Param);
-        if (OnChangedImage == null) { return; }
-        OnChangedImage(img);
+        OnChangedImage?.Invoke(img);
     }
 
     // ****************************************

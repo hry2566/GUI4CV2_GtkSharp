@@ -62,8 +62,7 @@ class LibInRangeHSV : Box
         if (_originImg == null) { return; }
         (int HMin, int HMax, int SMin, int SMax, int VMin, int VMax) Param = GetParam();
         Mat img = ImageProcessing(_originImg, Param);
-        if (OnChangedImage == null) { return; }
-        OnChangedImage(img);
+        OnChangedImage?.Invoke(img);
     }
 
     // ****************************************

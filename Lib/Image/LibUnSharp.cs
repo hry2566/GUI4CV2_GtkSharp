@@ -47,8 +47,7 @@ class LibUnSharp : Box
         if (_originImg == null) { return; }
         (int x, int y, double k) Param = GetParam();
         Mat img = ImageProcessing(_originImg, Param);
-        if (OnChangedImage == null) { return; }
-        OnChangedImage(img);
+        OnChangedImage?.Invoke(img);
     }
 
     // ****************************************
