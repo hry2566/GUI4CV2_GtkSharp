@@ -67,7 +67,7 @@ namespace ImShowCustom
             // _cv2c.ImShow(_imgProc.Run(_originImg,3));                           // LibSobel
             // _cv2c.ImShow(_imgProc.Run(_originImg,(1.87,-80)));                  // LibConvertScaleAbs
             // _cv2c.ImShow(_imgProc.Run(_originImg, 1.5));                        // LibGamma
-            // _cv2c.ImShow(_imgProc.Run(_originImg, (false, true, true)));        // LibGamma
+            // _cv2c.ImShow(_imgProc.Run(_originImg, (false, true, true)));        // LibEqualizeHist
         }
 
         // ****************************************
