@@ -29,7 +29,7 @@ class LibWhiteBalance : Box
     // ****************************************
     // Private Function
     // ****************************************
-    private Mat ImageProcessing(Mat sourceImg, (int x, int y) Param)
+    private Mat ImageProcessing(Mat sourceImg)
     {
         Mat distImg = new();
         Mat labImage = new Mat();
@@ -50,9 +50,9 @@ class LibWhiteBalance : Box
     // ****************************************
     // Public Function
     // ****************************************
-    public Mat Run(Mat sourceImg, (int x, int y) Param = default)
+    public Mat Run(Mat sourceImg)
     {
         _originImg = sourceImg;
-        return ImageProcessing(_originImg, Param);
+        return ImageProcessing(_originImg);
     }
 }
