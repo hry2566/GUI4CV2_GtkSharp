@@ -32,7 +32,8 @@ namespace ImShowCustom
         // private LibGamma _imgProc = new();
         // private LibWhiteBalance _imgProc = new();
         // private LibEqualizeHist _imgProc = new();
-        private LibBitwiseNot _imgProc = new();
+        // private LibBitwiseNot _imgProc = new();
+        private LibReverseBrightness _imgProc = new();
         
 
         private LibImShow _cv2c = new();
