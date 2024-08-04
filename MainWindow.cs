@@ -31,7 +31,9 @@ namespace ImShowCustom
         // private LibConvertScaleAbs _imgProc = new();
         // private LibGamma _imgProc = new();
         // private LibWhiteBalance _imgProc = new();
-        private LibEqualizeHist _imgProc = new();
+        // private LibEqualizeHist _imgProc = new();
+        private LibBitwiseNot _imgProc = new();
+        
 
         private LibImShow _cv2c = new();
         private Mat _originImg = null;
