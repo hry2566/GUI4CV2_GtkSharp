@@ -33,8 +33,9 @@ namespace ImShowCustom
         // private LibWhiteBalance _imgProc = new();
         // private LibEqualizeHist _imgProc = new();
         // private LibBitwiseNot _imgProc = new();
-        private LibReverseBrightness _imgProc = new();
-        
+        // private LibReverseBrightness _imgProc = new();
+        private LibRotate _imgProc = new();
+
 
         private LibImShow _cv2c = new();
         private Mat _originImg = null;
@@ -71,6 +72,7 @@ namespace ImShowCustom
             // _cv2c.ImShow(_imgProc.Run(_originImg,(1.87,-80)));                  // LibConvertScaleAbs
             // _cv2c.ImShow(_imgProc.Run(_originImg, 1.5));                        // LibGamma
             // _cv2c.ImShow(_imgProc.Run(_originImg, (false, true, true)));        // LibEqualizeHist
+            // _cv2c.ImShow(_imgProc.Run(_originImg, (-10, 0.8)));                 // LibRotate
         }
 
         // ****************************************
