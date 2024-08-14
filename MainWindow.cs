@@ -35,7 +35,8 @@ namespace ImShowCustom
         // private LibBitwiseNot _imgProc = new();
         // private LibReverseBrightness _imgProc = new();
         // private LibRotate _imgProc = new();
-        private LibWarpPerspective _imgProc = null;
+        // private LibWarpPerspective _imgProc = null;
+        private LibTrim _imgProc = new();
 
 
         private LibImShow _cv2c = new();
@@ -48,12 +49,12 @@ namespace ImShowCustom
             builder.Autoconnect(this);
             DeleteEvent += Window_DeleteEvent;
 
-            _imgProc = new(_cv2c);  // LibWarpPerspective
+            // _imgProc = new(_cv2c);  // LibWarpPerspective
             InitGui();
             InitEvents();
 
-            // _originImg = Cv2.ImRead("lenna.png", ImreadModes.Color);
-            _originImg = Cv2.ImRead("30.png", ImreadModes.Color);
+            _originImg = Cv2.ImRead("lenna.png", ImreadModes.Color);
+            // _originImg = Cv2.ImRead("30.png", ImreadModes.Color);               // LibWarpPerspective                   
             _cv2c.ImShow(_imgProc.Run(_originImg));
             // _cv2c.ImShow(_imgProc.Run(_originImg,(20,20)));                     // LibBlur
             // _cv2c.ImShow(_imgProc.Run(_originImg,(20,20,20.6)));                // LibGaussianBlur
@@ -81,6 +82,7 @@ namespace ImShowCustom
             // Point pt3 = new(X: 37, Y: 244);                                     // LibWarpPerspective
             // Point pt4 = new(X: 428, Y: 171);                                    // LibWarpPerspective
             // _cv2c.ImShow(_imgProc.Run(_originImg, (pt1, pt2, pt3, pt4)));       // LibWarpPerspective
+            // _cv2c.ImShow(_imgProc.Run(_originImg, (175, 175, 393, 393)));       // LibTrim
         }
 
         // ****************************************
