@@ -2,6 +2,20 @@ using System;
 using System.Runtime.InteropServices;
 using Gtk;
 using OpenCvSharp;
+using Point = OpenCvSharp.Point;
+
+static class MouseEvent
+{
+    public const int EVENT_MOUSEMOVE = 0;
+    public const int EVENT_LBUTTONDOWN = 1;
+    public const int EVENT_LBUTTONUP = 2;
+    public const int EVENT_RBUTTONDOWN = 3;
+    public const int EVENT_RBUTTONUP = 4;
+    public const int EVENT_WHEELDOWN = 5;
+    public const int EVENT_WHEELUP = 6;
+    public const int EVENT_WHEEL_CLICKDOWN = 7;
+    public const int EVENT_WHEEL_CLICKUP = 8;
+}
 
 class LibImShow : LibEventBox
 {
@@ -9,14 +23,10 @@ class LibImShow : LibEventBox
     private int imgWidth, imgHeight, frameWidth, frameHeight, trimX, trimY, trimWidth, trimHeight;
     private bool dragFlag = false, ctrlKeyFlag = false;
     private Mat memMat = new();
-
-    private struct POINT
-    {
-        public int x;
-
-        public int y;
-    }
     private SubImShow _sub = new();
+    public delegate void eventHandler(int mouseEvent, string keyEvent, Point pos);
+    public eventHandler OnAction = null;
+
     public LibImShow()
     {
         InitGui();
@@ -62,42 +72,49 @@ class LibImShow : LibEventBox
     private void OnKeyReleaseEvent(object o, KeyReleaseEventArgs args)
     {
         if (args.Event.Key.ToString() == "Control_L") { ctrlKeyFlag = false; }
+        OnImShow(keyEvent: $"release:{args.Event.Key.ToString()}");
     }
-
 
     private void OnKeyPressEvent(object o, KeyPressEventArgs args)
     {
         if (args.Event.Key.ToString() == "Control_L") { ctrlKeyFlag = true; }
+        OnImShow(keyEvent: $"press:{args.Event.Key.ToString()}");
     }
 
     private void OnMouseScroll(object o, ScrollEventArgs args)
     {
-        if (!ctrlKeyFlag) { return; }
+        if (ctrlKeyFlag)
+        {
+            double step = 0.02;
+            GetImgCursolPos(args.Event.X, args.Event.Y);
+            double memPosX = imgCursolPosX;
+            double memPosY = imgCursolPosY;
+            imgScale *= (args.Event.Direction == Gdk.ScrollDirection.Up) ? 1 + step : 1 - step;
+            imgScale = Math.Max(imgScale, minImgScale);
+            imgScale = Math.Min(imgScale, 200);
+            GetImgCursolPos(args.Event.X, args.Event.Y);
 
-        double step = 0.02;
-        GetImgCursolPos(args.Event.X, args.Event.Y);
-        double memPosX = imgCursolPosX;
-        double memPosY = imgCursolPosY;
-        imgScale *= (args.Event.Direction == Gdk.ScrollDirection.Up) ? 1 + step : 1 - step;
-        imgScale = Math.Max(imgScale, minImgScale);
-        imgScale = Math.Min(imgScale, 200);
-        GetImgCursolPos(args.Event.X, args.Event.Y);
+            trimX += (int)(memPosX - imgCursolPosX);
+            trimY += (int)(memPosY - imgCursolPosY);
+            trimX = Math.Max(trimX, 0);
+            trimY = Math.Max(trimY, 0);
 
-        trimX += (int)(memPosX - imgCursolPosX);
-        trimY += (int)(memPosY - imgCursolPosY);
-        trimX = Math.Max(trimX, 0);
-        trimY = Math.Max(trimY, 0);
+            ImShow(memMat);
+            args.RetVal = true;
+        }
 
-        ImShow(memMat);
-        args.RetVal = true;
+        int mouseEvent = default;
+        if (args.Event.Direction == Gdk.ScrollDirection.Up) { mouseEvent = MouseEvent.EVENT_WHEELUP; }
+        else if (args.Event.Direction == Gdk.ScrollDirection.Down) { mouseEvent = MouseEvent.EVENT_WHEELDOWN; }
+        OnImShow(mouseEvent: mouseEvent, pos: GetImgPos());
     }
 
     private void OnMouseMove(object o, MotionNotifyEventArgs args)
     {
         _sub.eventImShow.IsFocus = true;
         GetImgCursolPos(args.Event.X, args.Event.Y);
-        POINT pos = GetImgPos();
-        _sub.lblImShow.Text = $"x={pos.x.ToString()} y={pos.y.ToString()}";
+        Point pos = GetImgPos();
+        _sub.lblImShow.Text = $"x={pos.X.ToString()} y={pos.Y.ToString()}";
 
         if (dragFlag && ctrlKeyFlag)
         {
@@ -108,11 +125,19 @@ class LibImShow : LibEventBox
             trimY = Math.Max((int)(startY - mouseY), 0);
             ImShow(memMat);
         }
+
+        OnImShow(pos: pos);
     }
 
     private void OnMouseUp(object o, ButtonReleaseEventArgs args)
     {
         dragFlag = false;
+
+        int mouseEvent = default;
+        if (args.Event.Button == 1) { mouseEvent = MouseEvent.EVENT_LBUTTONUP; }
+        else if (args.Event.Button == 3) { mouseEvent = MouseEvent.EVENT_RBUTTONUP; }
+        GetImgCursolPos(args.Event.X, args.Event.Y);
+        OnImShow(mouseEvent: mouseEvent, pos: GetImgPos());
     }
 
     private void OnMouseDown(object o, ButtonPressEventArgs args)
@@ -128,8 +153,13 @@ class LibImShow : LibEventBox
             ResetView(memMat);
             ImShow(memMat);
         }
-    }
 
+        int mouseEvent = default;
+        if (args.Event.Button == 1) { mouseEvent = MouseEvent.EVENT_LBUTTONDOWN; }
+        else if (args.Event.Button == 3) { mouseEvent = MouseEvent.EVENT_RBUTTONDOWN; }
+        GetImgCursolPos(args.Event.X, args.Event.Y);
+        OnImShow(mouseEvent: mouseEvent, pos: GetImgPos());
+    }
 
     private void OnResize(int width, int height)
     {
@@ -148,19 +178,19 @@ class LibImShow : LibEventBox
     // **************************************************
     // private function
     // **************************************************
-    private POINT GetImgPos()
+    private Point GetImgPos()
     {
-        POINT pos = new();
+        Point pos = new();
         int offsetX = (int)((frameWidth - imgWidth * imgScale) / imgScale / 2);
         int offsetY = (int)((frameHeight - imgHeight * imgScale) / imgScale / 2);
         if (offsetX < 0) { offsetX = 0; }
         if (offsetY < 0) { offsetY = 0; }
-        pos.x = (int)(imgCursolPosX - offsetX);
-        pos.y = (int)(imgCursolPosY - offsetY);
-        if (pos.x < 0) { pos.x = 0; }
-        if (pos.x > imgWidth) { pos.x = imgWidth; }
-        if (pos.y < 0) { pos.y = 0; }
-        if (pos.y > imgHeight) { pos.y = imgHeight; }
+        pos.X = (int)(imgCursolPosX - offsetX);
+        pos.Y = (int)(imgCursolPosY - offsetY);
+        if (pos.X < 0) { pos.X = 0; }
+        if (pos.X > imgWidth) { pos.X = imgWidth; }
+        if (pos.Y < 0) { pos.Y = 0; }
+        if (pos.Y > imgHeight) { pos.Y = imgHeight; }
         return pos;
     }
 
@@ -192,6 +222,7 @@ class LibImShow : LibEventBox
 
     private Mat GetScaleImage(Mat mat)
     {
+        if ((mat.Width * imgScale < 1) || (mat.Height * imgScale < 1)) { imgScale = 1; }
         Cv2.Resize(mat, mat, new Size(mat.Width * imgScale, mat.Height * imgScale), 0, 0, InterpolationFlags.Linear);
         return mat;
     }
@@ -207,6 +238,11 @@ class LibImShow : LibEventBox
         }
     }
 
+    private void OnImShow(int mouseEvent = default, string keyEvent = default, Point pos = default)
+    {
+        OnAction?.Invoke(mouseEvent, keyEvent, pos);
+    }
+
     // **************************************************
     // public function
     // **************************************************
@@ -214,10 +250,13 @@ class LibImShow : LibEventBox
 
     public void ImShow(Mat mat)
     {
-        if (imgScale == 0)
+        if (mat.Data == 0x0)
         {
-            ResetView(mat);
+            System.Console.WriteLine(mat);
+            return;
         }
+
+        if (imgScale == 0) { ResetView(mat); }
         memMat = mat.Clone();
         mat = GetTrimImage(mat);
         mat = GetScaleImage(mat);
@@ -247,9 +286,6 @@ class LibImShow : LibEventBox
         imgScale = minImgScale = scale;
     }
 
-    public Mat GetImage()
-    {
-        return memMat;
-    }
+    public Mat GetImage() { return memMat; }
 }
 
