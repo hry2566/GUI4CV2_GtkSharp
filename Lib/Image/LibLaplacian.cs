@@ -47,11 +47,11 @@ class LibLaplacian : Box
     // ****************************************
     private Mat ImageProcessing(Mat sourceImg, int Param)
     {
-        Mat distImg = new();
+        Mat dstImg = new();
         if (Param % 2 == 0) { Param += 1; }
-        Cv2.CvtColor(sourceImg, distImg, ColorConversionCodes.BGR2GRAY);
-        Cv2.Laplacian(distImg, distImg, MatType.CV_8UC1, Param);
-        return distImg;
+        Cv2.CvtColor(sourceImg, dstImg, ColorConversionCodes.BGR2GRAY);
+        Cv2.Laplacian(dstImg, dstImg, MatType.CV_8UC1, Param);
+        return dstImg;
     }
 
     private void SetParam(int Param)

@@ -66,10 +66,10 @@ class LibMorphology : Box
         if (Param.index == 1) { operation = MorphTypes.Close; }
         if (Param.index == 2) { operation = MorphTypes.Gradient; }
 
-        Mat distImg = new();
+        Mat dstImg = new();
         Mat kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(Param.x, Param.y));
-        Cv2.MorphologyEx(sourceImg, distImg, operation, kernel);
-        return distImg;
+        Cv2.MorphologyEx(sourceImg, dstImg, operation, kernel);
+        return dstImg;
     }
 
     private void SetParam((int index, int x, int y) Param)

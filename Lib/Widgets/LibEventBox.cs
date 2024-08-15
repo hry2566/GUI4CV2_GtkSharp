@@ -4,8 +4,8 @@ using Gtk;
 class LibEventBox : EventBox
 {
     private int width, height;
-    public delegate void eventHandler(int width, int height);
-    public eventHandler OnChangedSize;
+    public delegate void eventHandler2(int width, int height);
+    public eventHandler2 OnChangedSize;
 
     public LibEventBox()
     {

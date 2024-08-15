@@ -31,7 +31,7 @@ class LibWhiteBalance : Box
     // ****************************************
     private Mat ImageProcessing(Mat sourceImg)
     {
-        Mat distImg = new();
+        Mat dstImg = new();
         Mat labImage = new Mat();
         Mat lNormalized = new Mat();
         Cv2.CvtColor(sourceImg, labImage, ColorConversionCodes.BGR2Lab);
@@ -43,8 +43,8 @@ class LibWhiteBalance : Box
         a -= lNormalized * (Cv2.Mean(a).Val0 - 128) * 1.1;
         b -= lNormalized * (Cv2.Mean(b).Val0 - 128) * 1.1;
         Cv2.Merge(new Mat[] { l, a, b }, labImage);
-        Cv2.CvtColor(labImage, distImg, ColorConversionCodes.Lab2BGR);
-        return distImg;
+        Cv2.CvtColor(labImage, dstImg, ColorConversionCodes.Lab2BGR);
+        return dstImg;
     }
 
     // ****************************************

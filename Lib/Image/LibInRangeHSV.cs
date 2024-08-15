@@ -70,8 +70,8 @@ class LibInRangeHSV : Box
     // ****************************************
     private Mat ImageProcessing(Mat sourceImg, (int HMin, int HMax, int SMin, int SMax, int VMin, int VMax) Param)
     {
-        Mat distImg = new();
-        Cv2.CvtColor(sourceImg, distImg, ColorConversionCodes.BGR2HSV_FULL);
+        Mat dstImg = new();
+        Cv2.CvtColor(sourceImg, dstImg, ColorConversionCodes.BGR2HSV_FULL);
         Scalar s_min = new Scalar(Param.HMin, Param.SMin, Param.VMin);
         Scalar s_max = new Scalar(Param.HMax, Param.SMax, Param.VMax);
 
@@ -85,10 +85,10 @@ class LibInRangeHSV : Box
             s_min = new Scalar(0, Param.SMin, Param.VMin);
             s_max = new Scalar(Param.HMax, Param.SMax, Param.VMax);
             Cv2.InRange(sourceImg, s_min, s_max, mask2);
-            distImg = mask1 + mask2;
+            dstImg = mask1 + mask2;
         }
-        else { Cv2.InRange(sourceImg, s_min, s_max, distImg); }
-        return distImg;
+        else { Cv2.InRange(sourceImg, s_min, s_max, dstImg); }
+        return dstImg;
     }
 
     private void SetParam((int HMin, int HMax, int SMin, int SMax, int VMin, int VMax) Param)

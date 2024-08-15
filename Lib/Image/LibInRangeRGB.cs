@@ -70,11 +70,11 @@ class LibInRangeRGB : Box
     // ****************************************
     private Mat ImageProcessing(Mat sourceImg, (int RMin, int RMax, int GMin, int GMax, int BMin, int BMax) Param)
     {
-        Mat distImg = new();
+        Mat dstImg = new();
         Scalar s_min = new Scalar(Param.BMin, Param.GMin, Param.RMin);
         Scalar s_max = new Scalar(Param.BMax, Param.GMax, Param.RMax);
-        Cv2.InRange(sourceImg, s_min, s_max, distImg);
-        return distImg;
+        Cv2.InRange(sourceImg, s_min, s_max, dstImg);
+        return dstImg;
     }
 
     private void SetParam((int RMin, int RMax, int GMin, int GMax, int BMin, int BMax) Param)

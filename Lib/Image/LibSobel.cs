@@ -47,17 +47,17 @@ class LibSobel : Box
     // ****************************************
     private Mat ImageProcessing(Mat sourceImg, int Param)
     {
-        Mat distImg = new();
-        Mat distImgX = new();
-        Mat distImgY = new();
+        Mat dstImg = new();
+        Mat dstImgX = new();
+        Mat dstImgY = new();
         if (Param % 2 == 0) { Param += 1; }
-        Cv2.CvtColor(sourceImg, distImg, ColorConversionCodes.BGR2GRAY);
-        Cv2.Sobel(distImg, distImgX, MatType.CV_8UC1, 1, 0, Param);
-        Cv2.Sobel(distImg, distImgY, MatType.CV_8UC1, 0, 1, Param);
-        Cv2.Add(distImgX, distImgY, distImg);
-        Cv2.ConvertScaleAbs(distImg, distImg, 1, 0);
-        distImg.ConvertTo(distImg, MatType.CV_8U);
-        return distImg;
+        Cv2.CvtColor(sourceImg, dstImg, ColorConversionCodes.BGR2GRAY);
+        Cv2.Sobel(dstImg, dstImgX, MatType.CV_8UC1, 1, 0, Param);
+        Cv2.Sobel(dstImg, dstImgY, MatType.CV_8UC1, 0, 1, Param);
+        Cv2.Add(dstImgX, dstImgY, dstImg);
+        Cv2.ConvertScaleAbs(dstImg, dstImg, 1, 0);
+        dstImg.ConvertTo(dstImg, MatType.CV_8U);
+        return dstImg;
     }
 
     private void SetParam(int Param)

@@ -49,14 +49,14 @@ class LibGamma : Box
     // ****************************************
     private Mat ImageProcessing(Mat sourceImg, double Param)
     {
-        Mat distImg = new();
+        Mat dstImg = new();
         byte[] lut = new byte[256];
         for (int i = 0; i < lut.Length; i++)
         {
             lut[i] = (byte)(Math.Pow((float)i / 255, 1.0f / Param) * 255);
         }
-        Cv2.LUT(sourceImg, lut, distImg);
-        return distImg;
+        Cv2.LUT(sourceImg, lut, dstImg);
+        return dstImg;
     }
 
     private void SetParam(double Param)

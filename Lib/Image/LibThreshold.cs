@@ -67,10 +67,10 @@ class LibThreshold : Box
         if (Param.type == 3) { type = ThresholdTypes.Tozero; }
         if (Param.type == 4) { type = ThresholdTypes.TozeroInv; }
 
-        Mat distImg = new();
-        Cv2.CvtColor(sourceImg, distImg, ColorConversionCodes.BGR2GRAY);
-        Cv2.Threshold(distImg, distImg, Param.th, Param.val, type);
-        return distImg;
+        Mat dstImg = new();
+        Cv2.CvtColor(sourceImg, dstImg, ColorConversionCodes.BGR2GRAY);
+        Cv2.Threshold(dstImg, dstImg, Param.th, Param.val, type);
+        return dstImg;
     }
 
     private void SetParam((int type, double th, double val) Param)

@@ -51,9 +51,9 @@ class LibDilate : Box
     // ****************************************
     private Mat ImageProcessing(Mat sourceImg, (int x, int y) Param)
     {
-        Mat distImg = new();
-        Cv2.Dilate(sourceImg, distImg, Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(Param.x, Param.y)));
-        return distImg;
+        Mat dstImg = new();
+        Cv2.Dilate(sourceImg, dstImg, Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(Param.x, Param.y)));
+        return dstImg;
     }
 
     private void SetParam((int x, int y) Param)

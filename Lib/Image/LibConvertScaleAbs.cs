@@ -52,9 +52,9 @@ class LibConvertScaleAbs : Box
     // ****************************************
     private Mat ImageProcessing(Mat sourceImg, (double contrast, int brightness) Param)
     {
-        Mat distImg = new();
-        Cv2.ConvertScaleAbs(sourceImg, distImg, Param.contrast, Param.brightness);
-        return distImg;
+        Mat dstImg = new();
+        Cv2.ConvertScaleAbs(sourceImg, dstImg, Param.contrast, Param.brightness);
+        return dstImg;
     }
 
     private void SetParam((double contrast, int brightness) Param)

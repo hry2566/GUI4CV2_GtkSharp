@@ -111,7 +111,7 @@ class LibWarpPerspective : Box
     {
         if (Param == default) { return sourceImg; }
 
-        Mat distImg = new();
+        Mat dstImg = new();
         int rows = sourceImg.Rows;
         int cols = sourceImg.Cols;
         Point2f[] pts1 = [Param.tLeft, Param.tRight, Param.bLeft, Param.bRight];
@@ -126,8 +126,8 @@ class LibWarpPerspective : Box
         ];
 
         Mat matrix = Cv2.GetPerspectiveTransform(pts1, pts2);
-        Cv2.WarpPerspective(sourceImg, distImg, matrix, new Size(cols, rows));
-        return distImg;
+        Cv2.WarpPerspective(sourceImg, dstImg, matrix, new Size(cols, rows));
+        return dstImg;
     }
 
     private void SetParam((Point tLeft, Point tRight, Point bLeft, Point bRight) Param)

@@ -31,7 +31,7 @@ class LibReverseBrightness : Box
     // ****************************************
     private Mat ImageProcessing(Mat sourceImg)
     {
-        Mat distImg = new();
+        Mat dstImg = new();
         Mat hsvImg = new();
         Mat resultHsv = new();
         Cv2.CvtColor(sourceImg, hsvImg, ColorConversionCodes.BGR2HSV);
@@ -40,8 +40,8 @@ class LibReverseBrightness : Box
         Cv2.BitwiseNot(value, value);
         hsvChannels[2] = value;
         Cv2.Merge(hsvChannels, resultHsv);
-        Cv2.CvtColor(resultHsv, distImg, ColorConversionCodes.HSV2BGR);
-        return distImg;
+        Cv2.CvtColor(resultHsv, dstImg, ColorConversionCodes.HSV2BGR);
+        return dstImg;
     }
 
     // ****************************************

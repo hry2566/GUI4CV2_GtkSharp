@@ -47,16 +47,16 @@ class LibEqualizeHist : Box
     // ****************************************
     private Mat ImageProcessing(Mat sourceImg, (bool Hue, bool Saturation, bool Brightness) Param)
     {
-        Mat distImg = new();
-        Cv2.CvtColor(sourceImg, distImg, ColorConversionCodes.BGR2HSV);
-        Mat[] hsvChannels = Cv2.Split(distImg);
+        Mat dstImg = new();
+        Cv2.CvtColor(sourceImg, dstImg, ColorConversionCodes.BGR2HSV);
+        Mat[] hsvChannels = Cv2.Split(dstImg);
         var clahe = Cv2.CreateCLAHE(1.0, new Size(1, 1));
         if (Param.Hue) { clahe.Apply(hsvChannels[0], hsvChannels[0]); }
         if (Param.Saturation) { clahe.Apply(hsvChannels[1], hsvChannels[1]); }
         if (Param.Brightness) { clahe.Apply(hsvChannels[2], hsvChannels[2]); }
-        Cv2.Merge(hsvChannels, distImg);
-        Cv2.CvtColor(distImg, distImg, ColorConversionCodes.HSV2BGR);
-        return distImg;
+        Cv2.Merge(hsvChannels, dstImg);
+        Cv2.CvtColor(dstImg, dstImg, ColorConversionCodes.HSV2BGR);
+        return dstImg;
     }
 
     private void SetParam((bool Hue, bool Saturation, bool Brightness) Param)

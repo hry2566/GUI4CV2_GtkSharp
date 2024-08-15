@@ -53,13 +53,13 @@ class LibRotate : Box
     // ****************************************
     private Mat ImageProcessing(Mat sourceImg, (double angle, double scale) Param)
     {
-        Mat distImg = new();
+        Mat dstImg = new();
         int height = sourceImg.Rows;
         int width = sourceImg.Cols;
         Point2f center = new Point2f(width / 2f, height / 2f);
         Mat trans = Cv2.GetRotationMatrix2D(center, Param.angle, Param.scale);
-        Cv2.WarpAffine(sourceImg, distImg, trans, new Size(width, height), InterpolationFlags.Linear, BorderTypes.Constant, new Scalar(0, 0, 0));
-        return distImg;
+        Cv2.WarpAffine(sourceImg, dstImg, trans, new Size(width, height), InterpolationFlags.Linear, BorderTypes.Constant, new Scalar(0, 0, 0));
+        return dstImg;
     }
 
     private void SetParam((double angle, double scale) Param)
