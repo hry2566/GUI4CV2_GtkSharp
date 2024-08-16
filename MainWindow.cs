@@ -39,7 +39,8 @@ namespace ImShowCustom
         // private LibTrim _imgProc = new();
         // private LibShadingBlur _imgProc = new();
         // private LibShadingMedianBlur _imgProc = new();
-        private LibShadingGaussianBlur _imgProc = new();
+        // private LibShadingGaussianBlur _imgProc = new();
+        private LibLabelingNoiseRemoval _imgProc = new();
 
 
         private LibImShow _cv2c = new();
@@ -88,6 +89,7 @@ namespace ImShowCustom
             // _cv2c.ImShow(_imgProc.Run(_originImg, (175, 175, 393, 393)));       // LibTrim
             // _cv2c.ImShow(_imgProc.Run(_originImg, (2, 2, 1, 25)));              // LibShadingBlur
             // _cv2c.ImShow(_imgProc.Run(_originImg, (2, 2, 0, 1, 15)));           // LibShadingGaussianBlur
+            // _cv2c.ImShow(_imgProc.Run(_originImg, (0, 0, 0, 0, 0, 10)));        // LibLabelingNoiseRemoval
         }
 
         // ****************************************

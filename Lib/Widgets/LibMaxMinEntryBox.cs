@@ -46,11 +46,6 @@ class LibMaxMinEntryBox : Box
         OnChanged?.Invoke(int.Parse(_entryMin.Text), int.Parse(_entryMax.Text));
     }
 
-    // private void OnClick(object sender, EventArgs e)
-    // {
-    //     OnCliced?.Invoke(_lbl.Text);
-    // }
-
     // **************************************************
     // private function
     // **************************************************
@@ -61,10 +56,13 @@ class LibMaxMinEntryBox : Box
     public void Configure(string label = "")
     {
         if (label != "") { _lbl.Text = label; }
-        // if (btnLabel != "") { _btn.Label = btnLabel; }
     }
 
-    // public void SetText(string text) { _entry.Text = text; }
+    public void Set((int min, int max) Param)
+    {
+        _entryMin.Text = Param.min.ToString();
+        _entryMax.Text = Param.max.ToString();
+    }
 
     public (int min, int max) Get()
     {
