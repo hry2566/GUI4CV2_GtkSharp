@@ -64,16 +64,16 @@ class LibAdaptiveThreshold : Box
         AdaptiveThresholdTypes type = AdaptiveThresholdTypes.MeanC;
         if (Param.index == 1) { type = AdaptiveThresholdTypes.GaussianC; }
         if (Param.blockSize % 2 == 0) { Param.blockSize += 1; }
-        Mat distImg = new();
-        Cv2.CvtColor(sourceImg, distImg, ColorConversionCodes.BGR2GRAY);
-        Cv2.AdaptiveThreshold(distImg,
-                              distImg,
+        Mat dstImg = new();
+        Cv2.CvtColor(sourceImg, dstImg, ColorConversionCodes.BGR2GRAY);
+        Cv2.AdaptiveThreshold(dstImg,
+                              dstImg,
                               255,
                               type,
                               ThresholdTypes.Binary,
                               Param.blockSize,
                               Param.c);
-        return distImg;
+        return dstImg;
     }
 
     private void SetParam((int index, int blockSize, double c) Param)

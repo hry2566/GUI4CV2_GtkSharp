@@ -55,11 +55,11 @@ class LibCanny : Box
     // ****************************************
     private Mat ImageProcessing(Mat sourceImg, (int kernel, int max, int min) Param)
     {
-        Mat distImg = new();
-        Cv2.Blur(sourceImg, distImg, new OpenCvSharp.Size(Param.kernel, Param.kernel));
-        Cv2.CvtColor(distImg, distImg, ColorConversionCodes.BGR2GRAY);
-        Cv2.Canny(distImg, distImg, Param.max, Param.min);
-        return distImg;
+        Mat dstImg = new();
+        Cv2.Blur(sourceImg, dstImg, new OpenCvSharp.Size(Param.kernel, Param.kernel));
+        Cv2.CvtColor(dstImg, dstImg, ColorConversionCodes.BGR2GRAY);
+        Cv2.Canny(dstImg, dstImg, Param.max, Param.min);
+        return dstImg;
     }
 
     private void SetParam((int kernel, int max, int min) Param)

@@ -31,9 +31,9 @@ class LibBitwiseNot : Box
     // ****************************************
     private Mat ImageProcessing(Mat sourceImg)
     {
-        Mat distImg = new();
-        Cv2.BitwiseNot(sourceImg,distImg);
-        return distImg;
+        Mat dstImg = new();
+        Cv2.BitwiseNot(sourceImg, dstImg);
+        return dstImg;
     }
 
     // ****************************************

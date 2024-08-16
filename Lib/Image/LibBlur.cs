@@ -51,9 +51,9 @@ class LibBlur : Box
     // ****************************************
     private Mat ImageProcessing(Mat sourceImg, (int x, int y) Param)
     {
-        Mat distImg = new();
-        Cv2.Blur(sourceImg, distImg, new OpenCvSharp.Size(Param.x, Param.y));
-        return distImg;
+        Mat dstImg = new();
+        Cv2.Blur(sourceImg, dstImg, new OpenCvSharp.Size(Param.x, Param.y));
+        return dstImg;
     }
 
     private void SetParam((int x, int y) Param)
