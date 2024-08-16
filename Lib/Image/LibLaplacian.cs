@@ -37,8 +37,7 @@ class LibLaplacian : Box
     private void OnChangeScale(double value)
     {
         if (_originImg == null) { return; }
-        int Param = GetParam();
-        Mat img = ImageProcessing(_originImg, Param);
+        Mat img = ImageProcessing(_originImg, GetParam());
         OnChangedImage?.Invoke(img);
     }
 

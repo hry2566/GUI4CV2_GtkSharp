@@ -49,8 +49,7 @@ class LibFastNlMeansDenoisingColored : Box
     private void OnChangeScale(double value)
     {
         if (_originImg == null) { return; }
-        (float h, float hColor, int templateWindowSize, int searchWindowSize) Param = GetParam();
-        Mat img = ImageProcessing(_originImg, Param);
+        Mat img = ImageProcessing(_originImg, GetParam());
         OnChangedImage?.Invoke(img);
     }
 

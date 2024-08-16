@@ -45,8 +45,7 @@ class LibUnSharp : Box
     private void OnChangeScale(double value)
     {
         if (_originImg == null) { return; }
-        (int x, int y, double k) Param = GetParam();
-        Mat img = ImageProcessing(_originImg, Param);
+        Mat img = ImageProcessing(_originImg, GetParam());
         OnChangedImage?.Invoke(img);
     }
 

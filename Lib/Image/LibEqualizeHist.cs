@@ -37,8 +37,8 @@ class LibEqualizeHist : Box
     // ****************************************
     private void OnChangeCheck(bool[] check)
     {
-        (bool Hue, bool Saturation, bool Brightness) Param = (check[0], check[1], check[2]);
-        Mat img = ImageProcessing(_originImg, Param);
+        if (_originImg == null) { return; }
+        Mat img = ImageProcessing(_originImg, GetParam());
         OnChangedImage?.Invoke(img);
     }
 

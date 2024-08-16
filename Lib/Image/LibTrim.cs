@@ -49,8 +49,7 @@ class LibTrim : Box
     private void OnChangeScale(double value)
     {
         if (_originImg == null) { return; }
-        (int x1, int y1, int x2, int y2) Param = GetParam();
-        Mat img = ImageProcessing(_originImg, Param);
+        Mat img = ImageProcessing(_originImg, GetParam());
         OnChangedImage?.Invoke(img);
     }
 

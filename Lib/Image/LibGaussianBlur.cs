@@ -45,10 +45,7 @@ class LibGaussianBlur : Box
     private void OnChangeScale(double value)
     {
         if (_originImg == null) { return; }
-        (int x, int y, double sigma) Param = GetParam();
-        if (Param.x % 2 == 0) { Param.x += 1; }
-        if (Param.y % 2 == 0) { Param.y += 1; }
-        Mat img = ImageProcessing(_originImg, Param);
+        Mat img = ImageProcessing(_originImg, GetParam());
         OnChangedImage?.Invoke(img);
     }
 
@@ -58,6 +55,8 @@ class LibGaussianBlur : Box
     private Mat ImageProcessing(Mat sourceImg, (int x, int y, double sigma) Param)
     {
         Mat dstImg = new();
+        if (Param.x % 2 == 0) { Param.x += 1; }
+        if (Param.y % 2 == 0) { Param.y += 1; }
         Cv2.GaussianBlur(sourceImg, dstImg, new OpenCvSharp.Size(Param.x, Param.y), Param.sigma);
         return dstImg;
     }

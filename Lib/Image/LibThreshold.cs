@@ -51,8 +51,7 @@ class LibThreshold : Box
     private void OnChangeScale(double value)
     {
         if (_originImg == null) { return; }
-        (int type, double th, double val) Param = GetParam();
-        Mat img = ImageProcessing(_originImg, Param);
+        Mat img = ImageProcessing(_originImg, GetParam());
         OnChangedImage?.Invoke(img);
     }
 

@@ -37,10 +37,7 @@ class LibMedianBlur : Box
     private void OnChangeScale(double value)
     {
         if (_originImg == null) { return; }
-        int Param = GetParam();
-        if (Param % 2 == 0) { Param += 1; }
-
-        Mat img = ImageProcessing(_originImg, Param);
+        Mat img = ImageProcessing(_originImg, GetParam());
         OnChangedImage?.Invoke(img);
     }
 
@@ -50,6 +47,7 @@ class LibMedianBlur : Box
     private Mat ImageProcessing(Mat sourceImg, int Param)
     {
         Mat dstImg = new();
+        if (Param % 2 == 0) { Param += 1; }
         Cv2.MedianBlur(sourceImg, dstImg, Param);
         return dstImg;
     }
