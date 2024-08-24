@@ -13,7 +13,7 @@ class LibScaleBox : Box
     private int _decimalPlace = 0;
     private double memVal = 0;
     public delegate void eventHandler(double value);
-    public eventHandler OnChangedScale;
+    public eventHandler OnChangedScale = null;
 
     public LibScaleBox() : this(new Builder("LibScaleBox.glade")) { }
 

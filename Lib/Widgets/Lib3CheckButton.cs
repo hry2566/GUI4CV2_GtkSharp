@@ -1,5 +1,4 @@
 using System;
-using GLib;
 using Gtk;
 using UI = Gtk.Builder.ObjectAttribute;
 
@@ -10,7 +9,7 @@ class Lib3CheckButton : Box
     [UI] private CheckButton _check3 = null;
     [UI] private Label _lbl = null;
     public delegate void eventHandler(bool[] check);
-    public eventHandler OnChangedCheck;
+    public eventHandler OnChangedCheck = null;
 
     public Lib3CheckButton() : this(new Builder("Lib3CheckButton.glade")) { }
 

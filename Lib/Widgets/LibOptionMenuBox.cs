@@ -8,7 +8,7 @@ class LibOptionMenuBox : Box
     [UI] private Label _lbl = null;
     [UI] private ComboBoxText _comb = null;
     public delegate void eventHandler(string value);
-    public eventHandler OnChangedMenu;
+    public eventHandler OnChangedMenu = null;
 
     public LibOptionMenuBox() : this(new Builder("LibOptionMenuBox.glade")) { }
 

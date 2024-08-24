@@ -5,7 +5,7 @@ class LibEventBox : EventBox
 {
     private int width, height;
     public delegate void eventHandler2(int width, int height);
-    public eventHandler2 OnChangedSize;
+    public eventHandler2 OnChangedSize = null;
 
     public LibEventBox()
     {
